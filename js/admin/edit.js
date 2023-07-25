@@ -60,11 +60,15 @@ editCategoria.forEach(function (category) {
                 const id_img_categoria = response.id_img;
                 const nome_categoria = response.nome_categoria;
                 const descricao_categoria = response.descricao_categoria;
+                const apresentacao = response.apresentacao;
+                const numero_parcelas = response.numero_parcelas;
                 
                 $('#id_category').val(id_category);
                 $('#id_img_categoria').val(id_img_categoria);
                 $('#nome_categoria').val(nome_categoria);
                 $('#descricao_categoria').val(descricao_categoria);
+                $('#apresentacao').val(apresentacao);
+                $('#numero_parcelas').val(numero_parcelas);
                 $('#imagemCategoria').removeAttr('required');                 
 
                 $('#incluir_categoria').html('Editar');

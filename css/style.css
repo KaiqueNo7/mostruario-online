@@ -9,7 +9,7 @@
 }
 
 input[type="file"] {
-    display: none;
+	display: none;
 }
 
 :root
@@ -797,99 +797,21 @@ footer
 
 /* REPARO */
 
-.banner
-{
+.previewImage {
 	position: relative;
 	width: 100%;
-	min-height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	height: 120px;
 }
 
-.banner:before
-{
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 400px;
-	z-index: 1;
-	background: linear-gradient(to top,#111,transparent);
-}
-
-.banner .contentR
-{
-	position: relative;
-	max-width: 900px;
-	text-align: center;
-	z-index: 1;
-}
-
-.banner .contentR h2
-{
-	color: #fff;
-	font-size: 5em;
-}
-
-.banner .contentR p
-{
-	color: #fff;
-	font-size: 1.2em;
-}
-
-.btn
-{
-	position: relative;
-	display: inline-block;
-	margin-top: 30px;
-	padding: 10px 30px;
-	background: #fff;
-	color: #333;
-	text-decoration: none;
-}
-
-.btn ion-icon
-{
-	font-size: 1.1em;
-	margin: 0 10px;
-}
-
-.fitBg
-{
+.previewImage img {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	opacity: 0.8;
-}
-
-.about
-{
-	position: relative;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.about .contentBx
-{
-	min-width: 50%;
-	width: 50%;
-	text-align: end;
-	padding-right: 40px;
-}
-
-.titleText
-{
-	font-weight: 600;
-	font-size: 2em;
-	color: #fff;
-	margin-bottom: 10px;
+	border-radius: 8px;
+	object-position: center;
 }
 
 .t-white
@@ -958,5 +880,9 @@ footer
 	.menu.active div span {
 		transform: translateY(-50%) translateX(0px);
 		opacity: 1;
+	}
+
+	.category {
+		width: 100%;
 	}
 }

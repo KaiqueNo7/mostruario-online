@@ -86,4 +86,50 @@ $(document).ready(function() {
     document.execCommand('copy');
     elementoTemp.remove();
   }
+
+  function showPreviewProduct() {
+    const input = document.getElementById('imagemProduto');
+    const preview = document.getElementById('previewImagemProduct');
+    const imagemPreview = document.getElementById('imagemPreviewProduct');
+  
+    // Verifica se foi selecionada uma imagem
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+  
+      reader.onload = function(e) {
+        // Exibe a imagem no elemento de preview
+        imagemPreview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+  
+      // Lê o arquivo selecionado como URL de dados
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      // Se não foi selecionada uma imagem, esconde o preview
+      preview.style.display = 'none';
+    }
+  }
+
+  function showPreviewCategory() {
+    const input = document.getElementById('imagemCategoria');
+    const preview = document.getElementById('previewImagemCategory');
+    const imagemPreview = document.getElementById('imagemPreviewCategory');
+  
+    // Verifica se foi selecionada uma imagem
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+  
+      reader.onload = function(e) {
+        // Exibe a imagem no elemento de preview
+        imagemPreview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+  
+      // Lê o arquivo selecionado como URL de dados
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      // Se não foi selecionada uma imagem, esconde o preview
+      preview.style.display = 'none';
+    }
+  }
   

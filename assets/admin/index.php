@@ -96,16 +96,25 @@
                     </div>
                     <div class="inputDiv d-flex column w100">
                         <label for="preco_produto">Preço do produto</label>
-                        <input type="text" name="preco_produto" id="preco_produto"  inputmode="numeric" placeholder="R$ 0,00" required maxlength="12">
+                        <input type="text" name="preco_produto" id="preco_produto"  inputmode="numeric" placeholder="R$ 0,00" maxlength="12">
                     </div>
+
+                    <div class="inputDiv d-flex column w100">
+                        <label for="peso_produto">Peso do produto</label>
+                        <input type="text" class="decimal" name="peso_produto" id="peso_produto"  inputmode="numeric" placeholder="0.0" maxlength="12">
+                    </div>
+
                     <div class="inputDiv d-flex column w100">
                         <label for="id_categoria">Categoria do produto</label>
                         <?php include('../../assets/admin/sel_categoria.php'); ?>
                     </div>
                     <div class="inputDiv d-flex column w100">
                         <label for="imagemProduto">Imagem do produto</label>
+                        <div class="previewImage" id="previewImagemProduct" style="display: none;">
+                            <img id="imagemPreviewProduct" src="#" alt="Preview da Imagem" />
+                        </div>
                         <label class="btn-img js-ard al-center w100" for="imagemProduto" id="arquivoImg">Selecione imagem <i class="fa-regular fa-image"></i></label>
-                        <input type='file' name='imagem' id='imagemProduto' required>
+                        <input type='file' name='imagem' id='imagemProduto' onchange="showPreviewProduct()" required>
                     </div>
                     <button type="submit" class="btn-submit w100" name="incluir_produto" value="incluir_produto" id="incluir_produto">Incluir</button>
                 </form>
@@ -122,13 +131,43 @@
                         <input type="text" name="nome_categoria" id="nome_categoria" placeholder="Nome da categoria" maxlength="30" required>
                     </div>
                     <div class="inputDiv d-flex column w100">
+                        <label for="apresentacao">Apresentação dos produtos</label>
+                        <select name="apresentacao" id="apresentacao">
+                            <option value="">Selecione a apresentação</option>
+                            <option value="1">Peso</option>
+                            <option value="2">Preço</option>
+                            <option value="3">Preço parcelado</option>
+                        </select>
+                    </div>
+                    <div class="inputDiv d-flex column w100">
+                        <label for="numero_parcelas">Número de parcelas</label>
+                        <select name="numero_parcelas" id="numero_parcelas">
+                            <option value="">Selecione o número de parcelas</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                    <div class="inputDiv d-flex column w100">
                         <label for="descricao_categoria">Descrição da categoria</label>
                         <input type="text" name="descricao_categoria" id="descricao_categoria" placeholder="Descrição da categoria" maxlength="120">
                     </div>
                     <div class="inputDiv d-flex column w100">
                         <label for="imagemCategoria">Capa da categoria</label>
+                        <div class="previewImage" id="previewImagemCategory" style="display: none;">
+                            <img id="imagemPreviewCategory" src="#" alt="Preview da Imagem" />
+                        </div>
                         <label class="btn-img js-ard al-center w100" for="imagemCategoria" id="arquivoImgCategoria">Selecione imagem <i class="fa-regular fa-image"></i></label>
-                        <input type='file' name='imagem' id='imagemCategoria' required>
+                        <input type='file' name='imagem' id='imagemCategoria' onchange="showPreviewCategory()" required>
                     </div>
                     <button type="submit" class="btn-submit w100" name="incluir_categoria" value="incluir_categoria" id="incluir_categoria">Incluir</button>
                 </form>

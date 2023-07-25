@@ -16,11 +16,12 @@ if($row){
 $ultimoComponente = basename($urlCompleta);
 $nome_categoria = pathinfo($ultimoComponente, PATHINFO_FILENAME);
 
-$sql = " SELECT id_categoria FROM categoria WHERE nome_categoria ='" . $nome_categoria . "' AND id_usuario = " . $id_usuario;
+$sql = " SELECT id_categoria, nome_categoria FROM categoria WHERE nome_categoria ='" . $nome_categoria . "' AND id_usuario = " . $id_usuario;
 $rs = $conn->query($sql);
 $row = $rs->fetch_assoc();
 if($row){
 	$id_categoria = $row['id_categoria'];
+	$nome_categoria = $row['nome_categoria'];
 };
 ?>
 <!DOCTYPE html>

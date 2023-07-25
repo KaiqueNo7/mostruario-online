@@ -90,6 +90,7 @@
         . " `nome_produto`='" . $_POST['nome_produto'] . "',"
         . " `descricao_produto`=$descricao_produto,"
         . " `preco_produto`='" . str_replace("R$", "", str_replace(",", "", $_POST['preco_produto'])) . "',"
+        . " `peso_produto`='" . $_POST['peso_produto'] . "',"
         . " `id_categoria`='" . $_POST['id_categoria'] . "'"
         . " WHERE id_produto = " . $id_produto;
    
@@ -215,7 +216,9 @@
 
         $sql = "UPDATE `categoria` SET "
         . " `nome_categoria`='" . $_POST['nome_categoria'] . "',"
-        . " `descricao_categoria`='" . $_POST['descricao_categoria'] . "'"
+        . " `descricao_categoria`='" . $_POST['descricao_categoria'] . "',"
+        . " `apresentacao`='" . $_POST['apresentacao'] . "',"
+        . " `numero_parcelas`='" . $_POST['numero_parcelas'] . "'"
         . " WHERE id_categoria = " . $id_categoria
         . " AND id_usuario = " . $id_usuario;
 
@@ -290,7 +293,9 @@
         $sql = "SELECT inserir_categoria("
             . "'" . $_POST['id_usuario'] . "',"
             . "'" . $nome_categoria . "',"
-            . "'" . $_POST['descricao_categoria'] . "'"
+            . "'" . $_POST['descricao_categoria'] . "',"
+            . "'" . $_POST['apresentacao'] . "',"
+            . "'" . $_POST['numero_parcelas'] . "'"
         . ")";
         $rs = $conn->query($sql);
 

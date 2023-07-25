@@ -40,7 +40,7 @@ if(!empty($_POST['id_produto'])){
 if(!empty($_POST['id_categoria'])){
     $id_categoria = $_POST['id_categoria'];
 
-    $sql = "SELECT c.id_categoria, c.nome_categoria, c.descricao_categoria, i.id_img "
+    $sql = "SELECT c.id_categoria, c.nome_categoria, c.descricao_categoria, c.apresentacao, c.numero_parcelas, i.id_img "
     ." FROM categoria c"
     ." LEFT JOIN img i ON c.id_categoria = i.id_objeto"
     ." WHERE id_categoria = " . $id_categoria;
@@ -50,6 +50,8 @@ if(!empty($_POST['id_categoria'])){
         $id_categoria = $row['id_categoria'];
         $nome_categoria = $row['nome_categoria'];
         $descricao_categoria = $row['descricao_categoria'];
+        $apresentacao = $row['apresentacao'];
+        $numero_parcelas = $row['numero_parcelas'];
         $id_img = $row['id_img']; 
     }
 
@@ -57,6 +59,8 @@ if(!empty($_POST['id_categoria'])){
         'id_categoria' => $id_categoria,
         'nome_categoria' => $nome_categoria,
         'descricao_categoria' => $descricao_categoria,
+        'apresentacao' => $apresentacao,
+        'numero_parcelas' => $numero_parcelas,
         'id_img' => $id_img
     );
 

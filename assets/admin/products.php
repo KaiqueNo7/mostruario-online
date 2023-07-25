@@ -7,10 +7,11 @@ if(!empty($_POST['ordenarPor'])){
     $id_categoria = $_POST['id_categoria'];
 }
 
-$sql = "SELECT i.id_img, p.id_produto, p.nome_produto, p.descricao_produto, p.preco_produto, p.id_categoria, p.peso_produto, p.tamanho_produto, p.tipagem_produto"
+$sql = "SELECT i.id_img, p.id_produto, p.nome_produto, p.descricao_produto, p.preco_produto, p.id_categoria, p.peso_produto, c.apresentacao, c.numero_parcelas"
     ." FROM produto p"
     ." LEFT JOIN img i ON p.id_produto = i.id_objeto"
-    ." WHERE id_categoria = " . $id_categoria;
+    ." LEFT JOIN categoria c ON p.id_categoria = c.id_categoria"
+    ." WHERE p.id_categoria = " . $id_categoria;
 
     switch ($ordenarPor) {
         case 'novos':
@@ -52,7 +53,21 @@ print "<div class='card-2'>";
             print "<p class='m5-0'>" . $row['descricao_produto'] . "</p>";
         print "</div>";
         print "<div class='w100 js-btw al-center'>";
-            print "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
+            switch($row['apresentacao']){
+                case '1':
+                print "<p class='price'>" . $row['peso_produto'] . " g</p>";
+                break;
+                case '2':
+                print "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
+                break;
+                case '3':
+                $valor = $row['preco_produto'] / $row['numero_parcelas'];
+
+                print "<p class='price'>" . $row['numero_parcelas'] . "x de R$ " . number_format($valor, 2, ',', '.') . "</p>";
+                break;
+                default: 
+                print "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
+            }
         print "</div>";
     print "</div>";
 print "</div>";
