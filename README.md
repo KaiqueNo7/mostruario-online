@@ -1,4 +1,4 @@
-# Mostruario Online - 
+# Mostruário Online - 
 Online platform for product demonstration and administration.
 
 Geting Started - 
