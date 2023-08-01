@@ -5,7 +5,7 @@ Geting Started -
 - Create an account
 - Sign in
 
-'You will have the following features available:' 
+# You will have the following features available:
 
 - Inclusion of categories - Add a category to organize the display of prices
 
