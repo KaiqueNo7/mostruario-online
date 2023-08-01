@@ -1,4 +1,5 @@
-# Mostruario Online - Online platform for product demonstration and administration.
+# Mostruario Online - 
+Online platform for product demonstration and administration.
 
 Geting Started - 
 
