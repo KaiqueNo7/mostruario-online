@@ -39,11 +39,11 @@
         <?php include('../../head.php'); ?>
     </head>
     <body class="bg">
-    <header class="w100 p20 js-btw al-center">
+    <header class="w100 js-btw al-center">
             <p>Bem-vindo, <b><?php print ucfirst($usuario); ?></b></p>
             <p class="logoIcon">M<b>o</b></p>
     </header>
-        <section class="w100 vh100 wrap js-start al-start p20 g20">
+        <section class="w100 vh100 js-center al-start column">
             <input type="hidden" id="linkDoUsuario" value="https://mostruario.online/<?php print $usuario; ?>"></input>
             <div class="pop-up text-c bg-pp p20" id="confirmDelCategoria">
                 <div class="close cancel"><i class="fa-solid fa-xmark"></i></div>
@@ -173,27 +173,81 @@
                 </form>
             </div>
             
-            <div class="w100 wrap js-start al-start g20">
-            <?php
-                $sql = "SELECT c.id_categoria, c.nome_categoria, c.descricao_categoria, i.id_img"
-                    ." FROM categoria c"
-                    ." LEFT JOIN img i ON c.id_categoria = i.id_objeto" 
-                    ." WHERE id_usuario = " . $id_usuario;
-                $rs = $conn->query($sql);
+            <div class="w100 js-start al-start column">
+                <h1 class='m10-0 title p-l-20'>Categorias</h1>
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                    <?php
+                    $sql = "SELECT c.id_categoria, c.nome_categoria, c.descricao_categoria, i.id_img"
+                        ." FROM categoria c"
+                        ." LEFT JOIN img i ON c.id_categoria = i.id_objeto" 
+                        ." WHERE id_usuario = " . $id_usuario;
+                    $rs = $conn->query($sql);
 
-                while($row = $rs->fetch_assoc()){
-                    print "<div class='card-2' id='img" . $row['id_img'] . "'>";
-                        print "<h1>Categoria</h1>";
+                    while($row = $rs->fetch_assoc()){
+                        print "<div class='swiper-slide'>";
+                            print "<div class='card-2' id='img" . $row['id_img'] . "'>";
+                                print "<div class='img8x'>";
+                                    print "<img src='../" . removeCaracteresEspeciais($row['nome_categoria']) . "/00" . $row['id_img'] . ".jpg'>";
+                                    print "<ul class='action'>";
+                                        print "<li class='edit-categoria' data-id='" . $row['id_categoria'] . "'>";
+                                            print "<div>";
+                                                print "<i class='fa-regular fa-pen-to-square'></i>";
+                                            print "</div>";
+                                            print "<span>Editar</span>";
+                                        print "</li>";
+                                        print "<li class='del-categoria' user-id=" . $id_usuario . " data-id='" . $row['id_categoria'] . "' img='" . $row['id_img'] . "'>";
+                                            print "<div>";
+                                                print "<i class='fa-solid fa-trash'></i>";
+                                            print "</div>";
+                                            print "<span>Deletar</span>";
+                                        print "</li>";
+                                    print "</ul>";
+                                print "</div>";
+                                print "<div class='text-c p20'>";
+                                        print "<p>" . $row['nome_categoria'] . "</p>";
+                                print "</div>";
+                            print "</div>";
+                        print "</div>";
+                    }
+                    ?>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+            
+            <?php 
+
+            $sql = "SELECT nome_categoria, id_categoria FROM categoria WHERE id_usuario = " . $id_usuario;
+
+            $rs = $conn->query($sql);
+            while($row_categoria = $rs->fetch_assoc()){
+
+                print "<h1 class='m10-0 title p-l-20'>" . $row_categoria['nome_categoria'] . "</h1>";
+                print "<div class='wrap al-start js-start g10 p20'>";
+
+                $sql = "SELECT c.nome_categoria, i.id_img, p.id_produto, p.nome_produto, p.descricao_produto, p.preco_produto, p.id_categoria, p.peso_produto, p.tamanho_produto, p.tipagem_produto"
+                ." FROM produto p"
+                ." LEFT JOIN img i ON p.id_produto = i.id_objeto"
+                ." LEFT JOIN categoria c ON p.id_categoria = c.id_categoria"
+                ." WHERE p.id_usuario = " . $id_usuario
+                ." AND c.id_categoria = " . $row_categoria['id_categoria']
+                ." ORDER BY p.date_create DESC, id_categoria DESC";
+
+                $rs_produto = $conn->query($sql);
+                while($row = $rs_produto->fetch_assoc()){
+                    print "<div class='card-product' id='img" . $row['id_img'] . "'>";
                         print "<div class='img8x'>";
-                            print "<img src='../" . removeCaracteresEspeciais($row['nome_categoria']) . "/00" . $row['id_img'] . ".jpg'>";
+                            print "<img src='../img/00" . $row['id_produto'] . "/00" . $row['id_img'] . ".jpg'>";
                             print "<ul class='action'>";
-                                print "<li class='edit-categoria' data-id='" . $row['id_categoria'] . "'>";
+                                print "<li class='edit' data-id='" . $row['id_produto'] . "'>";
                                     print "<div>";
                                         print "<i class='fa-regular fa-pen-to-square'></i>";
                                     print "</div>";
                                     print "<span>Editar</span>";
                                 print "</li>";
-                                print "<li class='del-categoria' user-id=" . $id_usuario . " data-id='" . $row['id_categoria'] . "' img='" . $row['id_img'] . "'>";
+                                print "<li class='del' user-id='" . $id_usuario . "' data-id='" . $row['id_produto'] . "' img='" . $row['id_img'] . "'>";
                                     print "<div>";
                                         print "<i class='fa-solid fa-trash'></i>";
                                     print "</div>";
@@ -201,53 +255,19 @@
                                 print "</li>";
                             print "</ul>";
                         print "</div>";
-                        print "<div class='text-c p20'>";
-                                print "<p>" . $row['nome_categoria'] . "</p>";
+                        print "<div class='conteudo'>";
+                            print "<div class='w100 js-start al-start column'>";
+                                print "<h3>" . $row['nome_produto'] . "</h3>";
+                                print "<p class='m5-0'>" . $row['descricao_produto'] . "</p>";
+                            print "</div>";
+                            print "<div class='w100 js-btw al-center'>";
+                                print "<p><i>" . $row['nome_categoria'] . "</i></p>";
+                                print "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
+                            print "</div>";
                         print "</div>";
                     print "</div>";
                 }
-                ?>
-            </div>
-            <?php 
 
-            $sql = "SELECT c.nome_categoria, i.id_img, p.id_produto, p.nome_produto, p.descricao_produto, p.preco_produto, p.id_categoria, p.peso_produto, p.tamanho_produto, p.tipagem_produto"
-                ." FROM produto p"
-                ." LEFT JOIN img i ON p.id_produto = i.id_objeto"
-                ." LEFT JOIN categoria c ON p.id_categoria = c.id_categoria"
-                ." WHERE p.id_usuario = " . $id_usuario
-                ." ORDER BY p.date_create DESC, id_categoria DESC";
-
-            $rs = $conn->query($sql);
-
-            while($row = $rs->fetch_assoc()){
-                print "<div class='card-2' id='img" . $row['id_img'] . "'>";
-                    print "<div class='img8x'>";
-                        print "<img src='../img/00" . $row['id_produto'] . "/00" . $row['id_img'] . ".jpg'>";
-                        print "<ul class='action'>";
-                            print "<li class='edit' data-id='" . $row['id_produto'] . "'>";
-                                print "<div>";
-                                    print "<i class='fa-regular fa-pen-to-square'></i>";
-                                print "</div>";
-                                print "<span>Editar</span>";
-                            print "</li>";
-                            print "<li class='del' user-id='" . $id_usuario . "' data-id='" . $row['id_produto'] . "' img='" . $row['id_img'] . "'>";
-                                print "<div>";
-                                    print "<i class='fa-solid fa-trash'></i>";
-                                print "</div>";
-                                print "<span>Deletar</span>";
-                            print "</li>";
-                        print "</ul>";
-                    print "</div>";
-                    print "<div class='conteudo'>";
-                        print "<div class='w100 js-start al-start column'>";
-                            print "<h3>" . $row['nome_produto'] . "</h3>";
-                            print "<p class='m5-0'>" . $row['descricao_produto'] . "</p>";
-                        print "</div>";
-                        print "<div class='w100 js-btw al-center'>";
-                            print "<p><i>" . $row['nome_categoria'] . "</i></p>";
-                            print "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
-                        print "</div>";
-                    print "</div>";
                 print "</div>";
             }
             ?>
@@ -300,4 +320,6 @@
     <script src="../../js/admin/edit.js"></script>
     <script src="../../js/admin/del.js"></script>
     <script src="../../js/admin/mask.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="../../js/admin/slide.js"></script>
 </html>

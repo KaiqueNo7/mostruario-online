@@ -97,7 +97,9 @@ input[type="file"] {
 .h100{ height: 100%; }
 .vh100{ min-height: 100vh; }
 .mb-30 { margin-bottom: 30px; }
+.g10 { gap: 10px; }
 .g20 { gap: 20px; }
+.p-l-20 { padding-left: 20px; }
 
 .fs-1 {
 	font-size: 1em;
@@ -186,6 +188,12 @@ input[type="file"] {
 .titlle {
 	text-transform: uppercase;
 	color: var(--preto);
+}
+
+.title {
+	color: var(--preto);
+    font-weight: 500;
+    font-size: 2em;
 }
 
 .pop-up .inputDiv label {
@@ -512,56 +520,31 @@ header.sticky .toggle
 	top: -8px;
 }
 
-.slide-home
-{
-	position: relative;
+.swiper {
 	width: 100%;
-	height: 600px;
+	height: 100%;
+	padding: 20px;
 }
 
-.swiper-pagination-bullet-active
-{
-	background: #fff!important;
-}
-
-.swiper-button-next,
-.swiper-button-prev
-{
-	color: #fff!important;
-}
-
-.swiper 
-{
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide 
-{
+.swiper-slide {
 	text-align: center;
 	font-size: 18px;
 	background: #fff;
-	/* Center slide text vertically */
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	-webkit-justify-content: center;
 	justify-content: center;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	-webkit-align-items: center;
 	align-items: center;
 }
 
-.swiper-slide img 
-{
+.swiper-slide img {
 	display: block;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	color: var(--btn)!important;
 }
 
 .fa-heart-o
@@ -618,19 +601,27 @@ header.sticky .toggle
 }
 
 .card-2 {
+	width: 100%;
+	background: var(--branco);
+	box-shadow: var(--sombra);
+}
+
+.card-product {
 	width: 300px;
 	background: var(--branco);
 	box-shadow: var(--sombra);
 }
 
-.card-2 .img8x {
+.card-2 .img8x,
+.card-product .img8x {
 	position: relative;
 	width: 100%;
 	height: 310px;
 	overflow: hidden;
 }
 
-.card-2 .img8x img
+.card-2 .img8x img,
+.card-product .img8x img
 {
 	position: absolute;
 	top: 0;
@@ -642,12 +633,13 @@ header.sticky .toggle
 	transform-origin: center;
 }
 
-.card-2:hover .img8x img
-{
+.card-2:hover .img8x img,
+.card-product:hover .img8x img {
 	transform: scale(1.5);
 }
 
-.card-2 h1 {
+.card-2 h1,
+.card-product h1 {
 	font-weight: 400;
 	font-size: 1em;
 	text-align: center;
@@ -679,7 +671,8 @@ header.sticky .toggle
 	cursor: pointer;
 }
 
-.card-2:hover .action li
+.card-2:hover .action li,
+.card-product:hover .action li
 {
 	transform: translateX(0px);
 }
@@ -770,7 +763,8 @@ header.sticky .toggle
 	color: var(--btn);
 }
 
-.card-2 .conteudo
+.card-2 .conteudo,
+.card-product .conteudo
 {
 	padding: 10px;
 	height: 120px;
