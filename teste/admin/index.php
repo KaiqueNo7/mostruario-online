@@ -1,1 +1,0 @@
-<?php include('../../assets/admin/index.php'); ?>

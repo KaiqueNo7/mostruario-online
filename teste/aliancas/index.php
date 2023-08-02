@@ -1,1 +1,0 @@
-<?php include('../../assets/admin/modelo.php'); ?>
