@@ -370,7 +370,9 @@
                         $caminho_arquivo = $diretorio . $nome_arquivo;    
                         $conteudoArquivo = file_get_contents($_FILES['imagem']['tmp_name']);
                         if (file_put_contents($caminho_arquivo, $conteudoArquivo) !== false) {
-                        
+                            setcookie("ok", "Produto incluído!", time() + 60, "/");
+
+                            header("Location: index.php");
                         } else {
                             setcookie("error", "Erro ao inserir imagem", time() + 60, "/");
 
