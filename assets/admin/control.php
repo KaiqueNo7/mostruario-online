@@ -5,9 +5,10 @@
         if(!empty($_POST['descricao_produto'])){ $descricao_produto = "'" . $_POST['descricao_produto'] . "'"; } else { $descricao_produto = "null"; }
         if(!empty($_POST['preco_produto'])){ $preco_produto = "'" . str_replace("R$", "", str_replace(",", "", $_POST['preco_produto'])) . "'"; } else { $preco_produto = "null"; }
         if(!empty($_POST['peso_produto'])){ $peso = "'" . $_POST['peso_produto'] . "'"; } else { $peso = "null"; }
+        if(!empty($_POST['nome_produto'])){ $nome_produto = "'" . $_POST['nome_produto'] . "'"; } else { $nome_produto = ""; }
 
         $sql = "SELECT inserir_produto ( "
-           . "'" . $_POST['nome_produto'] . "',"
+           . "'" . $nome_produto . "',"
            . "" . $descricao_produto . ","
            . "" . $preco_produto . ","
            . "" . $_POST['id_categoria'] . ","
@@ -143,17 +144,15 @@
 
     if(!empty($_POST['edita_categoria'])){
 
-        // Remover espaços em branco no início e fim do nome da categoria
+
         $nome_categoria = trim($_POST['nome_categoria']);
 
-        // Verificar se o nome da categoria está vazio
         if (empty($nome_categoria)) {
             setcookie("error", "Nome da categoria não pode ser vazio!", time() + 60, "/");
             header("Location: index.php");
-            exit(); // Encerra o script para evitar execução adicional
+            exit();
         }
         
-        // Obter o nome atual da categoria
         $sql = "SELECT nome_categoria FROM categoria WHERE id_categoria = " . $_POST['id_categoria'];
         $rs = $conn->query($sql);
         $row = $rs->fetch_assoc();

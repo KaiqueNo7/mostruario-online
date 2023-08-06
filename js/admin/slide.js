@@ -34,3 +34,14 @@ var swiper = new Swiper(".mySwiper", {
         prevEl: ".swiper-button-prev",
       },
 });
+
+var swiper = new Swiper(".product-slide", {
+    pagination: {
+        el: ".swiper-pagination",
+        type: "progressbar",
+      },
+      navigation: {
+        nextEl: ".product-button-next",
+        prevEl: ".product-button-prev",
+      },
+});

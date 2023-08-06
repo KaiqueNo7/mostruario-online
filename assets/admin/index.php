@@ -80,15 +80,26 @@
                 </form>
             </div>
 
-            <div class="pop-up bg-pp" id="pop-up">
+            <div class="pop-up bg" id="pop-up">
                 <div class="close" id="close"><i class="fa-solid fa-xmark"></i></div>
                 <form method="POST" enctype="multipart/form-data" class="column js-center al-center">
                     <input type="hidden" name="id_usuario" id="id_usuario" value="<?php print $id_usuario; ?>">
                     <input type="hidden" name="id_produto" id="id_produto">
+
+                    <div class="inputDiv d-flex column w100">
+                        <div class="previewImage" id="previewImagemProduct" style="display: none;">
+                            <img id="imagemPreviewProduct" src="#" alt="Preview da Imagem" />
+                        </div>
+                        <label class="btn-img js-ard al-center w100" for="imagemProduto" id="arquivoImg">
+                            Selecione imagem <i class="fa-regular fa-image"></i>
+                        </label>
+                        <input type='file' name='imagem' id='imagemProduto' onchange="showPreviewProduct()" required>
+                    </div>
+
                     <input type="hidden" name="id_img" id="id_img">
                     <div class="inputDiv d-flex column w100">
                         <label for="nome_produto">Nome do produto</label>
-                        <input type="text" name="nome_produto" id="nome_produto" placeholder="Nome do produto" maxlength="30" required>
+                        <input type="text" name="nome_produto" id="nome_produto" placeholder="Nome do produto" maxlength="30">
                     </div>
                     <div class="inputDiv d-flex column w100">
                         <label for="descricao_produto">Descrição do produto</label>
@@ -108,24 +119,25 @@
                         <label for="id_categoria">Categoria do produto</label>
                         <?php include('../../assets/admin/sel_categoria.php'); ?>
                     </div>
-                    <div class="inputDiv d-flex column w100">
-                        <label for="imagemProduto">Imagem do produto</label>
-                        <div class="previewImage" id="previewImagemProduct" style="display: none;">
-                            <img id="imagemPreviewProduct" src="#" alt="Preview da Imagem" />
-                        </div>
-                        <label class="btn-img js-ard al-center w100" for="imagemProduto" id="arquivoImg">Selecione imagem <i class="fa-regular fa-image"></i></label>
-                        <input type='file' name='imagem' id='imagemProduto' onchange="showPreviewProduct()" required>
-                    </div>
                     <button type="submit" class="btn-submit w100" name="incluir_produto" value="incluir_produto" id="incluir_produto">Incluir</button>
                 </form>
             </div>
 
-            <div class="pop-up bg-pp" id="pp-category">
+            <div class="pop-up bg" id="pp-category">
                 <div class="close" id="closeCategory"><i class="fa-solid fa-xmark"></i></div>
                 <form method="POST" enctype="multipart/form-data" class="column js-center al-center">
                     <input type="hidden" name="id_usuario" id="id_usuario" value="<?php print $id_usuario; ?>">
                     <input type="hidden" name="id_categoria" id="id_category">
                     <input type="hidden" name="id_img" id="id_img_categoria">
+
+                    <div class="inputDiv d-flex column w100">
+                        <div class="previewImage" id="previewImagemCategory" style="display: none;">
+                            <img id="imagemPreviewCategory" src="#" alt="Preview da Imagem" />
+                        </div>
+                        <label class="btn-img js-ard al-center w100" for="imagemCategoria" id="arquivoImgCategoria">Selecione imagem <i class="fa-regular fa-image"></i></label>
+                        <input type='file' name='imagem' id='imagemCategoria' onchange="showPreviewCategory()" required>
+                    </div>
+
                     <div class="inputDiv d-flex column w100">
                         <label for="nome_categoria">Nome da categoria</label>
                         <input type="text" name="nome_categoria" id="nome_categoria" placeholder="Nome da categoria" maxlength="30" required>
@@ -137,6 +149,7 @@
                             <option value="1">Peso</option>
                             <option value="2">Preço</option>
                             <option value="3">Preço parcelado</option>
+                            <option value="4">Nenhum</option>
                         </select>
                     </div>
                     <div class="inputDiv d-flex column w100" id="toggleSelect" style="display: none;">
@@ -160,14 +173,6 @@
                     <div class="inputDiv d-flex column w100">
                         <label for="descricao_categoria">Descrição da categoria</label>
                         <input type="text" name="descricao_categoria" id="descricao_categoria" placeholder="Descrição da categoria" maxlength="120">
-                    </div>
-                    <div class="inputDiv d-flex column w100">
-                        <label for="imagemCategoria">Capa da categoria</label>
-                        <div class="previewImage" id="previewImagemCategory" style="display: none;">
-                            <img id="imagemPreviewCategory" src="#" alt="Preview da Imagem" />
-                        </div>
-                        <label class="btn-img js-ard al-center w100" for="imagemCategoria" id="arquivoImgCategoria">Selecione imagem <i class="fa-regular fa-image"></i></label>
-                        <input type='file' name='imagem' id='imagemCategoria' onchange="showPreviewCategory()" required>
                     </div>
                     <button type="submit" class="btn-submit w100" name="incluir_categoria" value="incluir_categoria" id="incluir_categoria">Incluir</button>
                 </form>
@@ -225,7 +230,7 @@
             while($row_categoria = $rs->fetch_assoc()){
 
                 print "<h1 class='m10-0 title p-l-20'>" . $row_categoria['nome_categoria'] . "</h1>";
-                print "<div class='wrap al-start js-start g10 p20'>";
+                print "<div class='wrap al-start js-start g10 p20 w100'>";
 
                 $sql = "SELECT c.nome_categoria, i.id_img, p.id_produto, p.nome_produto, p.descricao_produto, p.preco_produto, p.id_categoria, p.peso_produto, p.tamanho_produto, p.tipagem_produto"
                 ." FROM produto p"

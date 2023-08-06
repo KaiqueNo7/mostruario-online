@@ -34,7 +34,16 @@ if($row){
 ?>
 <!DOCTYPE html>
 <html lang='pt-br'>
-<?php $raiz = "../../"; include('../../head.php'); ?>
+<head>	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mostruário Online - <?php print $nome_loja ?></title>
+	<meta name="description" content="Site de Jóias - Monstruário Online - Valorize o momento eternamente ou se valorize eternamente.">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" type="text/css" href="../../css/style.css">
+	<link rel="icon" href="../../img/icon.ico">
+</head>
 <body class="bg">
 <header class="w100 js-btw al-center p20">
     <p class="w80 text-l titlle"><?php print $nome_loja . " - " . $nome_categoria; ?></p>
@@ -68,6 +77,7 @@ if($row){
     <p>© <?php print date('Y') . " MOSTRUÁRIO ONLINE - $nome_loja"; ?> | Todos os direitos reservados.</p>
 </footer>
 <script src="../../js/jquery-min.js"></script>
+</script>
 <script>
     $(document).ready(function() {
         $('#filter').change(function() {
@@ -89,9 +99,17 @@ if($row){
             });
         });
 
-        // Adiciona o evento de clique à imagem
         $('.img8x').click(function() {
-            $(this).toggleClass('zoom');
+            var modalId = $(this).data('modal');
+            $('#' + modalId).addClass('show');
+        });
+
+        $('.close-modal').click(function() {
+            $(this).parent().removeClass('show');
+        });
+
+        $('.modal').click(function() {
+            $(this).removeClass('show');
         });
     });
 
@@ -99,8 +117,6 @@ if($row){
         var header = document.querySelector("header");
         header.classList.toggle("sticky", window.scrollY > 0);
     });
-
-    
 </script>
 </body>
 </htlm>
