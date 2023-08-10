@@ -718,14 +718,17 @@ header.sticky .toggle
 }
 
 .card-apresetation .conteudo {
-    position: absolute;
+	position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 80px;
+    height: 111px;
     padding: 15px;
     color: var(--bg);
-    background: linear-gradient(359deg, #5f5f5f, #cdcdcd00);
+    background: linear-gradient(359deg, #454545, #710e0e00);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 }
 
 
@@ -945,6 +948,10 @@ footer
 
 	.action li {
 		transform: translateX(0px);
+	}
+
+	.swiper {
+		padding: 20px;
 	}
 
 	.action li span {

@@ -11,7 +11,10 @@
         <a href="https://mostruario.online" class="text-c w100 p20 logo">MOSTRUÁRIO ONLINE</a>
         <div class="w100 js-center al-center column">
             <form class="w60" method="POST" id="form-login">
-                <h2>Crie uma conta</h2>
+            <input type="hidden" name="sitekey" id="sitekey" value="<?php echo SITE_KEY; ?>">
+            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                
+            <h2>Crie uma conta</h2>
                 <div class="inputDiv d-flex column m5-0">
                     <label class="m5-0" for="nome_loja">Nome do Mostruário</label>
                     <input class="login" type="text" name="nome_loja" id="nome_loja" maxlength="50" required>
@@ -49,7 +52,8 @@
 <div class="w100 js-center al-center p20 bg-pp t-white">
     <p class="terms">© <?php print date('Y') . " MOSTRUÁRIO ONLINE"; ?> | Todos os direitos reservados.</p>
 </div>
-<script src="../js/jquery-min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=<?php echo SITE_KEY; ?>"></script>
 <script src="../js/admin/register.js"></script>
 </body>
 </html>

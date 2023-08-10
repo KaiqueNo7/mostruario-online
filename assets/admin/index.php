@@ -43,7 +43,7 @@
             <p>Bem-vindo, <b><?php print ucfirst($usuario); ?></b></p>
             <p class="logoIcon">M<b>o</b></p>
     </header>
-        <section class="w100 vh100 js-center al-start column">
+        <section class="w100 js-start al-start column">
             <input type="hidden" id="linkDoUsuario" value="https://mostruario.online/<?php print $usuario; ?>"></input>
             <div class="pop-up text-c bg-pp p20" id="confirmDelCategoria">
                 <div class="close cancel"><i class="fa-solid fa-xmark"></i></div>
@@ -105,15 +105,32 @@
                         <label for="descricao_produto">Descrição do produto</label>
                         <input type="text" name="descricao_produto" id="descricao_produto" placeholder="Descrição do produto" maxlength="120">
                     </div>
-                    <div class="inputDiv d-flex column w100">
-                        <label for="preco_produto">Preço do produto</label>
-                        <input type="text" name="preco_produto" id="preco_produto"  inputmode="numeric" placeholder="R$ 0,00" maxlength="12">
-                    </div>
 
-                    <div class="inputDiv d-flex column w100">
-                        <label for="peso_produto">Peso do produto</label>
-                        <input type="text" class="decimal" name="peso_produto" id="peso_produto"  inputmode="numeric" placeholder="0.0" maxlength="12">
-                    </div>
+                    <?php
+                    
+                    $sql = "SELECT apresentacao"
+                    ." FROM categoria "
+                    ." WHERE id_usuario = " . $id_usuario;
+                    $rs = $conn->query($sql);
+                    while($row = $rs->fetch_assoc()){
+                        switch($row['apresentacao']){
+                            case 1;
+                            echo '<div class="inputDiv d-flex column w100">';
+                                echo '<label for="peso_produto">Peso do produto</label>';
+                                echo '<input type="text" class="decimal" name="peso_produto" id="peso_produto"  inputmode="numeric" placeholder="0.0" maxlength="12">';
+                            echo '</div>';
+                            break;
+                            case 3;
+                            case 2;
+                                echo '<div class="inputDiv d-flex column w100">';
+                                    echo '<label for="preco_produto">Preço do produto</label>';
+                                    echo '<input type="text" name="preco_produto" id="preco_produto"  inputmode="numeric" placeholder="R$ 0,00" maxlength="12">';
+                                echo '</div>';
+                            break;
+                        }
+                    }
+                    
+                    ?>
 
                     <div class="inputDiv d-flex column w100">
                         <label for="id_categoria">Categoria do produto</label>
@@ -180,7 +197,7 @@
             
             <div class="w100 js-start al-start column">
                 <h1 class='m10-0 title p-l-20'>Categorias</h1>
-                <div class="swiper mySwiper">
+                <div class="swiper mySwiper p-l-20 p20-0">
                     <div class="swiper-wrapper">
                     <?php
                     $sql = "SELECT c.id_categoria, c.nome_categoria, c.descricao_categoria, i.id_img"
@@ -224,11 +241,17 @@
             
             <?php 
 
-            $sql = "SELECT nome_categoria, id_categoria FROM categoria WHERE id_usuario = " . $id_usuario;
+            $sql = "SELECT c.nome_categoria, c.id_categoria, p.id_produto " 
+                . " FROM categoria c " 
+                . " LEFT JOIN produto p ON c.id_categoria = p.id_categoria"
+                . " WHERE c.id_usuario = " . $id_usuario
+                . " GROUP BY c.nome_categoria, c.id_categoria";
 
             $rs = $conn->query($sql);
             while($row_categoria = $rs->fetch_assoc()){
 
+                if(!empty($row_categoria['id_produto'])){
+               
                 print "<h1 class='m10-0 title p-l-20'>" . $row_categoria['nome_categoria'] . "</h1>";
                 print "<div class='wrap al-start js-start g10 p20 w100'>";
 
@@ -274,6 +297,7 @@
                 }
 
                 print "</div>";
+                } 
             }
             ?>
 

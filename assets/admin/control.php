@@ -8,7 +8,7 @@
         if(!empty($_POST['nome_produto'])){ $nome_produto = "'" . $_POST['nome_produto'] . "'"; } else { $nome_produto = ""; }
 
         $sql = "SELECT inserir_produto ( "
-           . "'" . $nome_produto . "',"
+           . "" . $nome_produto . ","
            . "" . $descricao_produto . ","
            . "" . $preco_produto . ","
            . "" . $_POST['id_categoria'] . ","

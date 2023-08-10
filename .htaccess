@@ -1,0 +1,29 @@
+RewriteEngine On
+RewriteBase /
+
+# Verifica se a pasta /admin existe
+RewriteCond %{REQUEST_URI} ^/admin(/|$)
+
+# Verifica se a pasta ou arquivo solicitado não existe
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redireciona para um arquivo ou script PHP que irá processar a URL amigável
+RewriteRule ^(.*)$ processar_url_amigavel.php?url=$1 [L]
+
+<Files assets>
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files .htaccess>
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>

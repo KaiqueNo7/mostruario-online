@@ -52,21 +52,21 @@ echo "<div class='card-apresetation'>";
         echo "<div class='w100 js-btw al-center'>";
             switch($row['apresentacao']){
                 case '1':
-                echo "<p class='price'>" . number_format($row['peso_produto'], 1) . "</p>";
+                echo "<p>" . number_format($row['peso_produto'], 1) . "</p>";
                 break;
                 case '2':
-                echo "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
+                echo "<p>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
                 break;
                 case '3':
                 $valor = $row['preco_produto'] / $row['numero_parcelas'];
 
-                echo "<p class='price'>" . $row['numero_parcelas'] . "x de R$ " . number_format($valor, 2, ',', '.') . "</p>";
+                echo "<p>" . $row['numero_parcelas'] . "x de R$ " . number_format($valor, 2, ',', '.') . "</p>";
                 break;
                 case '4':
 
                 break;
                 default: 
-                echo "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
+                echo "<p>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
             }
         echo "</div>";
     echo "</div>";
