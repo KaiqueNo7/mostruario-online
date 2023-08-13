@@ -15,9 +15,9 @@ if(!empty($_POST['id_produto'])){
         $id_img = $row['id_img'];
         $nome_produto = $row['nome_produto'];
         $descricao_produto = $row['descricao_produto']; 
-        $preco_produto = $row['preco_produto']; 
+        $preco_produto = number_format($row['preco_produto'], 2, ',', '.'); 
         $id_categoria = $row['id_categoria']; 
-        $peso_produto = $row['peso_produto']; 
+        $peso_produto = number_format($row['peso_produto'], 1); 
         $tamanho_produto = $row['tamanho_produto']; 
         $tipagem_produto = $row['tipagem_produto']; 
     }

@@ -39,11 +39,11 @@
         <?php include('../../head.php'); ?>
     </head>
     <body class="bg">
-    <header class="w100 p20 js-btw al-center">
+    <header class="w100 js-btw al-center">
             <p>Bem-vindo, <b><?php print ucfirst($usuario); ?></b></p>
             <p class="logoIcon">M<b>o</b></p>
     </header>
-        <section class="w100 vh100 wrap js-start al-start p20 g20">
+        <section class="w100 js-start al-start column">
             <input type="hidden" id="linkDoUsuario" value="https://mostruario.online/<?php print $usuario; ?>"></input>
             <div class="pop-up text-c bg-pp p20" id="confirmDelCategoria">
                 <div class="close cancel"><i class="fa-solid fa-xmark"></i></div>
@@ -80,52 +80,81 @@
                 </form>
             </div>
 
-            <div class="pop-up bg-pp" id="pop-up">
+            <div class="pop-up bg" id="pop-up">
                 <div class="close" id="close"><i class="fa-solid fa-xmark"></i></div>
                 <form method="POST" enctype="multipart/form-data" class="column js-center al-center">
                     <input type="hidden" name="id_usuario" id="id_usuario" value="<?php print $id_usuario; ?>">
                     <input type="hidden" name="id_produto" id="id_produto">
+
+                    <div class="inputDiv d-flex column w100">
+                        <div class="previewImage" id="previewImagemProduct" style="display: none;">
+                            <img id="imagemPreviewProduct" src="#" alt="Preview da Imagem" />
+                        </div>
+                        <label class="btn-img js-ard al-center w100" for="imagemProduto" id="arquivoImg">
+                            Selecione imagem <i class="fa-regular fa-image"></i>
+                        </label>
+                        <input type='file' name='imagem' id='imagemProduto' onchange="showPreviewProduct()" required>
+                    </div>
+
                     <input type="hidden" name="id_img" id="id_img">
                     <div class="inputDiv d-flex column w100">
                         <label for="nome_produto">Nome do produto</label>
-                        <input type="text" name="nome_produto" id="nome_produto" placeholder="Nome do produto" maxlength="30" required>
+                        <input type="text" name="nome_produto" id="nome_produto" placeholder="Nome do produto" maxlength="30">
                     </div>
                     <div class="inputDiv d-flex column w100">
                         <label for="descricao_produto">Descrição do produto</label>
                         <input type="text" name="descricao_produto" id="descricao_produto" placeholder="Descrição do produto" maxlength="120">
                     </div>
-                    <div class="inputDiv d-flex column w100">
-                        <label for="preco_produto">Preço do produto</label>
-                        <input type="text" name="preco_produto" id="preco_produto"  inputmode="numeric" placeholder="R$ 0,00" maxlength="12">
-                    </div>
 
-                    <div class="inputDiv d-flex column w100">
-                        <label for="peso_produto">Peso do produto</label>
-                        <input type="text" class="decimal" name="peso_produto" id="peso_produto"  inputmode="numeric" placeholder="0.0" maxlength="12">
-                    </div>
+                    <?php
+                    
+                    $sql = "SELECT apresentacao"
+                    ." FROM categoria "
+                    ." WHERE id_usuario = " . $id_usuario;
+                    $rs = $conn->query($sql);
+                    while($row = $rs->fetch_assoc()){
+                        switch($row['apresentacao']){
+                            case 1;
+                            echo '<div class="inputDiv d-flex column w100">';
+                                echo '<label for="peso_produto">Peso do produto</label>';
+                                echo '<input type="text" class="decimal" name="peso_produto" id="peso_produto"  inputmode="numeric" placeholder="0.0" maxlength="12">';
+                            echo '</div>';
+                            break;
+                            case 3;
+                            case 2;
+                                echo '<div class="inputDiv d-flex column w100">';
+                                    echo '<label for="preco_produto">Preço do produto</label>';
+                                    echo '<input type="text" name="preco_produto" id="preco_produto"  inputmode="numeric" placeholder="R$ 0,00" maxlength="12">';
+                                echo '</div>';
+                            break;
+                        }
+                    }
+                    
+                    ?>
 
                     <div class="inputDiv d-flex column w100">
                         <label for="id_categoria">Categoria do produto</label>
                         <?php include('../../assets/admin/sel_categoria.php'); ?>
                     </div>
-                    <div class="inputDiv d-flex column w100">
-                        <label for="imagemProduto">Imagem do produto</label>
-                        <div class="previewImage" id="previewImagemProduct" style="display: none;">
-                            <img id="imagemPreviewProduct" src="#" alt="Preview da Imagem" />
-                        </div>
-                        <label class="btn-img js-ard al-center w100" for="imagemProduto" id="arquivoImg">Selecione imagem <i class="fa-regular fa-image"></i></label>
-                        <input type='file' name='imagem' id='imagemProduto' onchange="showPreviewProduct()" required>
-                    </div>
                     <button type="submit" class="btn-submit w100" name="incluir_produto" value="incluir_produto" id="incluir_produto">Incluir</button>
                 </form>
             </div>
 
-            <div class="pop-up bg-pp" id="pp-category">
+            <div class="pop-up bg" id="pp-category">
                 <div class="close" id="closeCategory"><i class="fa-solid fa-xmark"></i></div>
                 <form method="POST" enctype="multipart/form-data" class="column js-center al-center">
                     <input type="hidden" name="id_usuario" id="id_usuario" value="<?php print $id_usuario; ?>">
                     <input type="hidden" name="id_categoria" id="id_category">
                     <input type="hidden" name="id_img" id="id_img_categoria">
+
+                    <div class="inputDiv d-flex column w100">
+                        <div class="previewImage" id="previewImagemCategory" style="display: none;">
+                            <img id="imagemPreviewCategory" src="#" alt="Preview da Imagem" />
+                        </div>
+                        <label class="btn-img js-ard al-center w100" for="imagemCategoria" id="arquivoImgCategoria">Selecione imagem <i class="fa-regular fa-image"></i></label>
+                        <input type='file' name='imagem' id='imagemCategoria' onchange="showPreviewCategory()" required>
+                    </div>
+
                     <div class="inputDiv d-flex column w100">
                         <label for="nome_categoria">Nome da categoria</label>
                         <input type="text" name="nome_categoria" id="nome_categoria" placeholder="Nome da categoria" maxlength="30" required>
@@ -137,9 +166,10 @@
                             <option value="1">Peso</option>
                             <option value="2">Preço</option>
                             <option value="3">Preço parcelado</option>
+                            <option value="4">Nenhum</option>
                         </select>
                     </div>
-                    <div class="inputDiv d-flex column w100">
+                    <div class="inputDiv d-flex column w100" id="toggleSelect" style="display: none;">
                         <label for="numero_parcelas">Número de parcelas</label>
                         <select name="numero_parcelas" id="numero_parcelas">
                             <option value="">Selecione o número de parcelas</option>
@@ -161,39 +191,91 @@
                         <label for="descricao_categoria">Descrição da categoria</label>
                         <input type="text" name="descricao_categoria" id="descricao_categoria" placeholder="Descrição da categoria" maxlength="120">
                     </div>
-                    <div class="inputDiv d-flex column w100">
-                        <label for="imagemCategoria">Capa da categoria</label>
-                        <div class="previewImage" id="previewImagemCategory" style="display: none;">
-                            <img id="imagemPreviewCategory" src="#" alt="Preview da Imagem" />
-                        </div>
-                        <label class="btn-img js-ard al-center w100" for="imagemCategoria" id="arquivoImgCategoria">Selecione imagem <i class="fa-regular fa-image"></i></label>
-                        <input type='file' name='imagem' id='imagemCategoria' onchange="showPreviewCategory()" required>
-                    </div>
                     <button type="submit" class="btn-submit w100" name="incluir_categoria" value="incluir_categoria" id="incluir_categoria">Incluir</button>
                 </form>
             </div>
             
-            <div class="w100 wrap js-start al-start g20">
-            <?php
-                $sql = "SELECT c.id_categoria, c.nome_categoria, c.descricao_categoria, i.id_img"
-                    ." FROM categoria c"
-                    ." LEFT JOIN img i ON c.id_categoria = i.id_objeto" 
-                    ." WHERE id_usuario = " . $id_usuario;
-                $rs = $conn->query($sql);
+            <div class="w100 js-start al-start column">
+                <h1 class='m10-0 title p-l-20'>Categorias</h1>
+                <div class="swiper mySwiper p-l-20 p20-0">
+                    <div class="swiper-wrapper">
+                    <?php
+                    $sql = "SELECT c.id_categoria, c.nome_categoria, c.descricao_categoria, i.id_img"
+                        ." FROM categoria c"
+                        ." LEFT JOIN img i ON c.id_categoria = i.id_objeto" 
+                        ." WHERE id_usuario = " . $id_usuario;
+                    $rs = $conn->query($sql);
 
-                while($row = $rs->fetch_assoc()){
-                    print "<div class='card-2' id='img" . $row['id_img'] . "'>";
-                        print "<h1>Categoria</h1>";
+                    while($row = $rs->fetch_assoc()){
+                        print "<div class='swiper-slide'>";
+                            print "<div class='card-2' id='img" . $row['id_img'] . "'>";
+                                print "<div class='img8x'>";
+                                    print "<img src='../" . removeCaracteresEspeciais($row['nome_categoria']) . "/00" . $row['id_img'] . ".jpg'>";
+                                    print "<ul class='action'>";
+                                        print "<li class='edit-categoria' data-id='" . $row['id_categoria'] . "'>";
+                                            print "<div>";
+                                                print "<i class='fa-regular fa-pen-to-square'></i>";
+                                            print "</div>";
+                                            print "<span>Editar</span>";
+                                        print "</li>";
+                                        print "<li class='del-categoria' user-id=" . $id_usuario . " data-id='" . $row['id_categoria'] . "' img='" . $row['id_img'] . "'>";
+                                            print "<div>";
+                                                print "<i class='fa-solid fa-trash'></i>";
+                                            print "</div>";
+                                            print "<span>Deletar</span>";
+                                        print "</li>";
+                                    print "</ul>";
+                                print "</div>";
+                                print "<div class='text-c p20'>";
+                                        print "<p>" . $row['nome_categoria'] . "</p>";
+                                print "</div>";
+                            print "</div>";
+                        print "</div>";
+                    }
+                    ?>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+            
+            <?php 
+
+            $sql = "SELECT c.nome_categoria, c.id_categoria, p.id_produto " 
+                . " FROM categoria c " 
+                . " LEFT JOIN produto p ON c.id_categoria = p.id_categoria"
+                . " WHERE c.id_usuario = " . $id_usuario
+                . " GROUP BY c.nome_categoria, c.id_categoria";
+
+            $rs = $conn->query($sql);
+            while($row_categoria = $rs->fetch_assoc()){
+
+                if(!empty($row_categoria['id_produto'])){
+               
+                print "<h1 class='m10-0 title p-l-20'>" . $row_categoria['nome_categoria'] . "</h1>";
+                print "<div class='wrap al-start js-start g10 p20 w100'>";
+
+                $sql = "SELECT c.nome_categoria, i.id_img, p.id_produto, p.nome_produto, p.descricao_produto, p.preco_produto, p.id_categoria, p.peso_produto, p.tamanho_produto, p.tipagem_produto"
+                ." FROM produto p"
+                ." LEFT JOIN img i ON p.id_produto = i.id_objeto"
+                ." LEFT JOIN categoria c ON p.id_categoria = c.id_categoria"
+                ." WHERE p.id_usuario = " . $id_usuario
+                ." AND c.id_categoria = " . $row_categoria['id_categoria']
+                ." ORDER BY p.date_create DESC, id_categoria DESC";
+
+                $rs_produto = $conn->query($sql);
+                while($row = $rs_produto->fetch_assoc()){
+                    print "<div class='card-product w24' id='img" . $row['id_img'] . "'>";
                         print "<div class='img8x'>";
-                            print "<img src='../" . removeCaracteresEspeciais($row['nome_categoria']) . "/00" . $row['id_img'] . ".jpg'>";
+                            print "<img src='../img/00" . $row['id_produto'] . "/00" . $row['id_img'] . ".jpg'>";
                             print "<ul class='action'>";
-                                print "<li class='edit-categoria' data-id='" . $row['id_categoria'] . "'>";
+                                print "<li class='edit' data-id='" . $row['id_produto'] . "'>";
                                     print "<div>";
                                         print "<i class='fa-regular fa-pen-to-square'></i>";
                                     print "</div>";
                                     print "<span>Editar</span>";
                                 print "</li>";
-                                print "<li class='del-categoria' user-id=" . $id_usuario . " data-id='" . $row['id_categoria'] . "' img='" . $row['id_img'] . "'>";
+                                print "<li class='del' user-id='" . $id_usuario . "' data-id='" . $row['id_produto'] . "' img='" . $row['id_img'] . "'>";
                                     print "<div>";
                                         print "<i class='fa-solid fa-trash'></i>";
                                     print "</div>";
@@ -201,54 +283,21 @@
                                 print "</li>";
                             print "</ul>";
                         print "</div>";
-                        print "<div class='text-c p20'>";
-                                print "<p>" . $row['nome_categoria'] . "</p>";
+                        print "<div class='conteudo'>";
+                            print "<div class='w100 js-start al-start column'>";
+                                print "<h3>" . $row['nome_produto'] . "</h3>";
+                                print "<p class='m5-0'>" . $row['descricao_produto'] . "</p>";
+                            print "</div>";
+                            print "<div class='w100 js-btw al-center'>";
+                                print "<p><i>" . $row['nome_categoria'] . "</i></p>";
+                                print "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
+                            print "</div>";
                         print "</div>";
                     print "</div>";
                 }
-                ?>
-            </div>
-            <?php 
 
-            $sql = "SELECT c.nome_categoria, i.id_img, p.id_produto, p.nome_produto, p.descricao_produto, p.preco_produto, p.id_categoria, p.peso_produto, p.tamanho_produto, p.tipagem_produto"
-                ." FROM produto p"
-                ." LEFT JOIN img i ON p.id_produto = i.id_objeto"
-                ." LEFT JOIN categoria c ON p.id_categoria = c.id_categoria"
-                ." WHERE p.id_usuario = " . $id_usuario
-                ." ORDER BY p.date_create DESC";
-
-            $rs = $conn->query($sql);
-
-            while($row = $rs->fetch_assoc()){
-                print "<div class='card-2' id='img" . $row['id_img'] . "'>";
-                    print "<div class='img8x'>";
-                        print "<img src='../img/00" . $row['id_produto'] . "/00" . $row['id_img'] . ".jpg'>";
-                        print "<ul class='action'>";
-                            print "<li class='edit' data-id='" . $row['id_produto'] . "'>";
-                                print "<div>";
-                                    print "<i class='fa-regular fa-pen-to-square'></i>";
-                                print "</div>";
-                                print "<span>Editar</span>";
-                            print "</li>";
-                            print "<li class='del' user-id='" . $id_usuario . "' data-id='" . $row['id_produto'] . "' img='" . $row['id_img'] . "'>";
-                                print "<div>";
-                                    print "<i class='fa-solid fa-trash'></i>";
-                                print "</div>";
-                                print "<span>Deletar</span>";
-                            print "</li>";
-                        print "</ul>";
-                    print "</div>";
-                    print "<div class='conteudo'>";
-                        print "<div class='w100 js-start al-start column'>";
-                            print "<h3>" . $row['nome_produto'] . "</h3>";
-                            print "<p class='m5-0'>" . $row['descricao_produto'] . "</p>";
-                        print "</div>";
-                        print "<div class='w100 js-btw al-center'>";
-                            print "<p><i>" . $row['nome_categoria'] . "</i></p>";
-                            print "<p class='price'>R$ " . number_format($row['preco_produto'], 2, ',', '.') . "</p>";
-                        print "</div>";
-                    print "</div>";
                 print "</div>";
+                } 
             }
             ?>
 
@@ -300,4 +349,6 @@
     <script src="../../js/admin/edit.js"></script>
     <script src="../../js/admin/del.js"></script>
     <script src="../../js/admin/mask.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="../../js/admin/slide.js"></script>
 </html>
