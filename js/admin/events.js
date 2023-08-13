@@ -76,6 +76,18 @@ $(document).ready(function() {
         $('#copiedMessage').text('Copiar link');
         }, 3000);
       });
+
+      $('#apresentacao').on('change', function() {
+        const valorSelecionado = $(this).val();
+        const inputText = $('#toggleSelect');
+    
+        // Verifica se o campo selecionado é igual à opção desejada
+        if (valorSelecionado === '3') {
+          inputText.show(); // Mostra o input text
+        } else {
+          inputText.hide(); // Oculta o input text
+        }
+      });
   });
   
   function copiarTexto(texto) {

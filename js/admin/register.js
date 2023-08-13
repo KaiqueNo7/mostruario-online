@@ -1,3 +1,16 @@
+grecaptcha.ready(function () {
+    // Recuperar a chave "SITE_KEY"
+    var sitekey = document.getElementById('sitekey').value;
+    console.log(sitekey);
+
+    // Enviar a SITE_KEY, o tipo de página "homepage", para o Google e obter o token
+    grecaptcha.execute(sitekey, { action: 'submit' }).then(function (token) {
+        
+        // Enviar o token retornado pelo Google para o formulário
+        document.getElementById('g-recaptcha-response').value = token;
+    });
+});
+
 if (document.cookie.includes("error")) {
     const include = document.getElementById('alert-error');
     include.classList.add('show');
@@ -11,7 +24,7 @@ if (document.cookie.includes("error")) {
 }
 
 $(document).ready(function() {
-    $('#confirm_password').on('input', function() {
+    $('#confirm_password').on('focusout', function() {
         const senha = $('#password').val();
         const confirmarSenha = $('#confirm_password').val();
         const mensagemErro = $('#mensagemErro');
@@ -28,7 +41,7 @@ $(document).ready(function() {
     let delayTimer;
     const atraso = 500; 
     
-    $('#usuario').on('input', function() {
+    $('#usuario').on('focusout', function() {
         const nomeUsuario = $(this).val();
         const mensagemUsuario = $('#usuarioError');
 
@@ -72,10 +85,5 @@ maskNomeLoja.addEventListener('input', function(event) {
         event.target.value = valorDigitado.replace(regexApenasLetras, '');
     }
 });
-
-
-
-
-
   
   

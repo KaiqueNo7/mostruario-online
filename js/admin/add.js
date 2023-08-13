@@ -31,6 +31,8 @@ openCategory.addEventListener("click", function() {
     $('#id_img_categoria').val('');
     $('#nome_categoria').val('');
     $('#descricao_categoria').val('');
+    $('#apresentacao').val('');
+    $('#numero_parcelas').val('');
     $('#imagemCategoria').val('');
     
     $('#incluir_categoria').html('Incluir');

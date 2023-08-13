@@ -56,6 +56,8 @@ editCategoria.forEach(function (category) {
             data: { id_categoria: id_categoria },
             dataType: 'json',
             success: function(response) {
+                const inputText = $('#toggleSelect');
+
                 const id_category = response.id_categoria;
                 const id_img_categoria = response.id_img;
                 const nome_categoria = response.nome_categoria;
@@ -69,7 +71,14 @@ editCategoria.forEach(function (category) {
                 $('#descricao_categoria').val(descricao_categoria);
                 $('#apresentacao').val(apresentacao);
                 $('#numero_parcelas').val(numero_parcelas);
-                $('#imagemCategoria').removeAttr('required');                 
+                $('#imagemCategoria').removeAttr('required'); 
+                
+     
+                if(apresentacao == 3){
+                    inputText.show();
+                } else {
+                    inputText.hide();
+                }
 
                 $('#incluir_categoria').html('Editar');
                 $('#incluir_categoria').val('edita_categoria');

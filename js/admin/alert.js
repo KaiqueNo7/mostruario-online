@@ -43,7 +43,7 @@ if (document.cookie.includes("error")) {
         include.classList.remove('show');
         include.classList.remove('del');
     }, 3000); 
-    //document.cookie = "error=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "error=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
 if (document.cookie.includes("deletado")) {
